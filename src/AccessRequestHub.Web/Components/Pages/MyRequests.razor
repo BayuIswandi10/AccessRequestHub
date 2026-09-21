@@ -14,19 +14,23 @@ else if (!_requests.Any())
 }
 else
 {
-    <table class="table table-striped">
-        <thead>
+    <div class="mb-3" style="max-width: 400px;">
+        <input type="text" class="form-control" placeholder="Search by Application Name..." @bind="_searchText" @bind:event="oninput" />
+    </div>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
             <tr>
                 <th>Application</th>
                 <th>Environment</th>
                 <th>Access Level</th>
                 <th>Status</th>
                 <th>Created</th>
-                <th></th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var r in _requests)
+            @foreach (var r in FilteredRequests)
             {
                 <tr>
                     <td>@r.ApplicationName</td>
@@ -44,6 +48,12 @@ else
 @code {
     private List<AccessRequestListDto> _requests = new();
     private bool _loading = true;
+    private string _searchText = "";
+
+    private IEnumerable<AccessRequestListDto> FilteredRequests =>
+        string.IsNullOrWhiteSpace(_searchText)
+            ? _requests
+            : _requests.Where(r => r.ApplicationName.Contains(_searchText, StringComparison.OrdinalIgnoreCase));
 
     protected override async Task OnInitializedAsync()
     {

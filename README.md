@@ -1,15 +1,14 @@
 # Access Request Hub MVP
 
-## Prerequisites
+## Prasyarat
 - .NET 8 SDK
-- SQL Server LocalDB (included with Visual Studio)
+- SQL Server LocalDB (bawaan Visual Studio) / SQL Server
 
-## Setup & Run
+## Setup & Cara Menjalankan
 
 ```bash
-# Clone repository
-git clone <repository-url>
-cd AccessRequestHub
+# Buka folder src/AccessRequestHub.Web
+cd src/AccessRequestHub.Web
 
 # Restore dependencies
 dotnet restore
@@ -17,89 +16,86 @@ dotnet restore
 # Build
 dotnet build
 
-# Run the application
-cd src/AccessRequestHub.Web
+# Jalankan aplikasi
 dotnet run
 ```
 
-Application will be available at: `http://localhost:5000`
+Aplikasi akan berjalan (port disesuaikan dengan `launchSettings.json`).
 
 ## Database
 
-Database is automatically created and seeded on first run using EF Core `EnsureCreated()` + `DbInitializer`.
+Database dibuat secara otomatis dan diisi dengan data awal (seed) pada saat pertama kali dijalankan menggunakan EF Core `EnsureCreated()` + `DbInitializer`.
 
-Connection string (default): `Server=(localdb)\mssqllocaldb;Database=AccessRequestHub;Trusted_Connection=True;MultipleActiveResultSets=true`
+Untuk melakukan reset database, Anda bisa menghapus database dari SQL Server dan menjalankan ulang aplikasi.
 
-To reset the database, delete the database from SQL Server and restart the application.
+## Daftar User Demo
 
-## Demo Users
-
-| User  | Email                | Role                           |
+| User  | Email                | Peran (Role)                     |
 |-------|----------------------|--------------------------------|
-| Alice | alice@example.local  | Requester (reports to Bob)     |
-| Bob   | bob@example.local    | Manager for Alice              |
-| Carol | carol@example.local  | System Owner - CRM             |
-| Dana  | dana@example.local   | System Owner - Finance Portal  |
-| Erin  | erin@example.local   | Admin / Auditor (view only)    |
+| Alice | alice@example.local  | Requester (Melapor ke Bob)     |
+| Bob   | bob@example.local    | Manajer untuk Alice              |
+| Carol | carol@example.local  | Pemilik Sistem - CRM             |
+| Dana  | dana@example.local   | Pemilik Sistem - Finance Portal  |
+| Erin  | erin@example.local   | Admin / Auditor (Hanya melihat)  |
 
-## Demo Applications
+## Daftar Aplikasi Demo
 
-| Application     | System Owner |
+| Aplikasi        | Pemilik Sistem |
 |-----------------|--------------|
 | CRM             | Carol        |
 | Finance Portal  | Dana         |
 
-## Demo Flow
+## Skenario Demo (Alur Uji Coba)
 
-### 1. Standard Request (Non-High-Risk)
-1. Select **Alice** in user switcher
-2. Go to **Create Request** -> CRM, NonProduction, Read
-3. Switch to **Bob** -> Go to **Approval Inbox** -> Approve
-4. Result: Status = **Approved**
+### 1. Request Standar (Risiko Rendah)
+1. Pilih **Alice** pada menu user switcher.
+2. Buka **Create Request** -> Pilih CRM, NonProduction, Read.
+3. Ganti user ke **Bob** -> Buka **Approval Inbox** -> Lakukan Approve.
+4. Hasil: Status berubah menjadi **Approved**.
 
-### 2. High-Risk Request (Production)
-1. Select **Alice** -> Create Request -> CRM, **Production**, Read
-2. Switch to **Bob** -> Approval Inbox -> Approve
-3. Status becomes **PendingSystemOwner**
-4. Switch to **Carol** -> Approval Inbox -> Approve
-5. Result: Status = **Approved**
+### 2. Request Risiko Tinggi (Production)
+1. Pilih **Alice** -> Buka Create Request -> Pilih CRM, **Production**, Read.
+2. Ganti user ke **Bob** -> Buka Approval Inbox -> Lakukan Approve.
+3. Status berubah menjadi **PendingSystemOwner**.
+4. Ganti user ke **Carol** -> Buka Approval Inbox -> Lakukan Approve.
+5. Hasil: Status berubah menjadi **Approved**.
 
-### 3. High-Risk Request (Admin Access)
-1. Select **Alice** -> Create Request -> Finance Portal, NonProduction, **Admin**
-2. Switch to **Bob** -> Approve
-3. Status becomes **PendingSystemOwner** (waiting for Dana)
+### 3. Request Risiko Tinggi (Akses Admin)
+1. Pilih **Alice** -> Buka Create Request -> Pilih Finance Portal, NonProduction, **Admin**.
+2. Ganti user ke **Bob** -> Lakukan Approve.
+3. Status berubah menjadi **PendingSystemOwner** (Menunggu persetujuan Dana).
 
-### 4. Rejection Flow
-1. Create any request as Alice
-2. Switch to Bob -> Approval Inbox -> Enter reason -> Reject
-3. Result: Status = **Rejected**, audit trail shows reason
+### 4. Alur Penolakan (Rejection)
+1. Buat request apa saja sebagai Alice.
+2. Ganti user ke Bob -> Buka Approval Inbox -> Masukkan alasan (reason) -> Lakukan Reject.
+3. Hasil: Status berubah menjadi **Rejected**, rekam jejak (audit trail) menampilkan alasan penolakan.
 
-## Running Tests
+## Menjalankan Pengujian (Tests)
 
 ```bash
 dotnet test tests/AccessRequestHub.Tests/
 ```
 
-Tests cover:
-- Standard non-high-risk approval flow
-- High-risk production request (two-step approval)
-- High-risk admin access request
-- Unauthorized approval attempt
-- Self-approval prevention
-- Idempotent duplicate request creation
-- Concurrent approval conflict detection
-- Rejection with reason and terminal state
-- Rejection without reason validation
-- Unauthenticated request handling
+Pengujian ini mencakup:
+- Alur persetujuan request standar (risiko rendah).
+- Request Production berisiko tinggi (persetujuan dua tahap).
+- Request akses Admin berisiko tinggi.
+- Pencegahan persetujuan dari user yang tidak berhak (Unauthorized).
+- Pencegahan persetujuan oleh diri sendiri (Self-approval).
+- Idempotensi untuk mencegah pengiriman request ganda.
+- Pencegahan intervensi ganda melalui Optimistic Concurrency.
+- Penolakan request lengkap dengan alasan (alasan wajib ada).
+- Penolakan tanpa alasan (akan gagal divalidasi).
+- Pengelolaan akses tanpa autentikasi yang sah.
 
-## Project Structure
+## Struktur Proyek
 
 ```
 src/
-├── AccessRequestHub.Domain/           # Entities & Enums
-├── AccessRequestHub.Application/      # DTOs, Services, Interfaces
-├── AccessRequestHub.Infrastructure/   # EF Core DbContext, Seeder
+├── AccessRequestHub.Domain/           # Entitas & Enum
+├── AccessRequestHub.Application/      # DTO, Layanan (Services), Antarmuka
+├── AccessRequestHub.Infrastructure/   # EF Core DbContext, Data Seeder
 └── AccessRequestHub.Web/              # Blazor UI + API Controllers
 tests/
-└── AccessRequestHub.Tests/            # Integration Tests
+└── AccessRequestHub.Tests/            # Pengujian Terintegrasi (Integration Tests)
 ```

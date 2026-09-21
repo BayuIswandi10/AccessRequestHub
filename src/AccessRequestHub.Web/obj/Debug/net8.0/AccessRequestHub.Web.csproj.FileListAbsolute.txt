@@ -148,3 +148,4 @@ C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Web
 C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Web\obj\Debug\net8.0\AccessRequestHub.Web.pdb
 C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Web\obj\Debug\net8.0\AccessRequestHub.Web.genruntimeconfig.cache
 C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Web\obj\Debug\net8.0\ref\AccessRequestHub.Web.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Web\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

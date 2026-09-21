@@ -17,24 +17,27 @@ public static class DbInitializer
     {
         context.Database.EnsureCreated();
 
-        if (context.Users.Any())
-            return;
+        if (!context.Users.Any())
+        {
+            var alice = new User { Id = AliceId, Name = "Alice", Email = "alice@example.local" };
+            var bob = new User { Id = BobId, Name = "Bob", Email = "bob@example.local" };
+            var carol = new User { Id = CarolId, Name = "Carol", Email = "carol@example.local" };
+            var dana = new User { Id = DanaId, Name = "Dana", Email = "dana@example.local" };
+            var erin = new User { Id = ErinId, Name = "Erin", Email = "erin@example.local" };
 
-        var alice = new User { Id = AliceId, Name = "Alice", Email = "alice@example.local" };
-        var bob = new User { Id = BobId, Name = "Bob", Email = "bob@example.local" };
-        var carol = new User { Id = CarolId, Name = "Carol", Email = "carol@example.local" };
-        var dana = new User { Id = DanaId, Name = "Dana", Email = "dana@example.local" };
-        var erin = new User { Id = ErinId, Name = "Erin", Email = "erin@example.local" };
+            alice.ManagerId = BobId;
 
-        alice.ManagerId = BobId;
+            context.Users.AddRange(alice, bob, carol, dana, erin);
+            context.SaveChanges();
+        }
 
-        context.Users.AddRange(alice, bob, carol, dana, erin);
-        context.SaveChanges();
+        if (!context.Applications.Any())
+        {
+            var crm = new AppEntity { Id = CrmAppId, Name = "CRM", SystemOwnerId = CarolId };
+            var finance = new AppEntity { Id = FinanceAppId, Name = "Finance Portal", SystemOwnerId = DanaId };
 
-        var crm = new AppEntity { Id = CrmAppId, Name = "CRM", SystemOwnerId = CarolId };
-        var finance = new AppEntity { Id = FinanceAppId, Name = "Finance Portal", SystemOwnerId = DanaId };
-
-        context.Applications.AddRange(crm, finance);
-        context.SaveChanges();
+            context.Applications.AddRange(crm, finance);
+            context.SaveChanges();
+        }
     }
 }

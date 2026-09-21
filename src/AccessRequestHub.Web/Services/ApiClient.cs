@@ -3,6 +3,8 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
+using Microsoft.AspNetCore.Components;
+
 namespace AccessRequestHub.Web.Services;
 
 public class ApiClient
@@ -14,9 +16,10 @@ public class ApiClient
         Converters = { new JsonStringEnumConverter() }
     };
 
-    public ApiClient(HttpClient httpClient)
+    public ApiClient(IHttpClientFactory factory, NavigationManager navManager)
     {
-        _httpClient = httpClient;
+        _httpClient = factory.CreateClient("Api");
+        _httpClient.BaseAddress = new Uri(navManager.BaseUri);
     }
 
     public void SetCurrentUser(string email)

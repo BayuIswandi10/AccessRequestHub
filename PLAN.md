@@ -1,27 +1,27 @@
 # PLAN.md - Access Request Hub MVP
 
-## Problem Understanding
+## Pemahaman Masalah
 
 Perusahaan masih mengelola permintaan akses aplikasi internal secara manual melalui email/chat. Masalah utama:
 - Proses approval sulit dilacak (audit trail tidak jelas)
 - Request bisa terkirim dua kali (duplicate submission)
-- Dua approver bisa melakukan action bersamaan (concurrency issue)
+- Dua approver bisa melakukan tindakan bersamaan (concurrency issue)
 
-Solusi: Membangun MVP Access Request Hub sebagai single source of truth untuk request, approval, dan audit trail.
+Solusi: Membangun MVP Access Request Hub sebagai sumber kebenaran tunggal (*single source of truth*) untuk request, approval, dan rekam jejak (*audit trail*).
 
-## Architecture & Data Model
+## Arsitektur & Model Data
 
 ### Tech Stack
 - **Frontend**: Blazor Server (.NET 8)
-- **Backend**: ASP.NET Core Web API (hosted in same Blazor project)
+- **Backend**: ASP.NET Core Web API (berjalan pada proyek Blazor yang sama)
 - **ORM**: Entity Framework Core 8
 - **Database**: SQL Server (LocalDB)
-- **Testing**: xUnit + WebApplicationFactory + SQL Server LocalDB
+- **Pengujian (Testing)**: xUnit + WebApplicationFactory + SQL Server LocalDB
 
-### Solution Structure (Layered / Clean Architecture)
+### Struktur Solusi (Layered / Clean Architecture)
 ```
 src/
-├── AccessRequestHub.Domain/           # Entities, Enums (zero dependencies)
+├── AccessRequestHub.Domain/           # Entities, Enums (tanpa dependencies)
 ├── AccessRequestHub.Application/      # DTOs, Services, Interfaces
 ├── AccessRequestHub.Infrastructure/   # EF Core DbContext, Migrations, Seeder
 └── AccessRequestHub.Web/              # Blazor Server + API Controllers + Middleware
@@ -29,7 +29,7 @@ tests/
 └── AccessRequestHub.Tests/            # xUnit Integration Tests
 ```
 
-### Data Model
+### Model Data
 - **User**: Id, Name, Email, ManagerId (self-referencing FK)
 - **Application**: Id, Name, SystemOwnerId (FK -> User)
 - **AccessRequest**: Id, ClientRequestId (unique), RequesterId, ApplicationId, Environment, AccessLevel, Status, BusinessJustification, PolicyVersion, RowVersion
@@ -37,28 +37,28 @@ tests/
 
 ### State Machine
 ```
-PendingManager -> Approved (non-high-risk, manager approve)
-PendingManager -> PendingSystemOwner (high-risk, manager approve)
-PendingManager -> Rejected (manager reject)
-PendingSystemOwner -> Approved (system owner approve)
-PendingSystemOwner -> Rejected (system owner reject)
+PendingManager -> Approved (risiko rendah, di-approve manajer)
+PendingManager -> PendingSystemOwner (risiko tinggi, di-approve manajer)
+PendingManager -> Rejected (di-reject manajer)
+PendingSystemOwner -> Approved (di-approve pemilik sistem)
+PendingSystemOwner -> Rejected (di-reject pemilik sistem)
 ```
 
-## Implementation Order
-1. Domain layer (entities, enums)
-2. Application layer (DTOs, service interfaces, service implementation)
-3. Infrastructure layer (DbContext with Fluent API, seeder)
-4. API layer (middleware, controllers)
-5. Blazor UI (user switcher, pages)
-6. Integration tests
-7. Documentation
+## Urutan Implementasi
+1. Lapisan Domain (entitas, enum)
+2. Lapisan Application (DTO, interface layanan, implementasi layanan)
+3. Lapisan Infrastructure (DbContext dengan Fluent API, seeder data awal)
+4. Lapisan API (middleware, controller)
+5. Antarmuka Blazor (pemilih user, halaman)
+6. Integration test (pengujian terintegrasi)
+7. Dokumentasi
 
-## Test Strategy
-- Integration tests menggunakan WebApplicationFactory dengan SQL Server LocalDB
-- Test coverage mencakup semua 7 demo scenarios yang diminta
-- Fokus pada business logic: authorization, idempotency, concurrency, state transitions
+## Strategi Pengujian
+- Integration test menggunakan WebApplicationFactory dengan SQL Server LocalDB
+- Cakupan (*coverage*) pengujian meliputi semua 7 skenario demo yang diminta
+- Fokus pada logika bisnis: otorisasi, idempotensi, konkurensi, dan transisi status (state)
 
-## Trade-offs
-1. **Single host vs separate projects**: Blazor + API dalam satu project untuk simplicity. Trade-off: less separation, tapi lebih mudah dijalankan (satu `dotnet run`).
-2. **SQL Server LocalDB vs containerized**: Menggunakan LocalDB karena sudah tersedia di Windows tanpa setup tambahan. Trade-off: tidak portable ke non-Windows tanpa modifikasi.
-3. **Simulated auth via header vs session**: Menggunakan HTTP header `X-User-Email` untuk simulasi authentication. Trade-off: tidak secure untuk production, tapi memenuhi requirement assessment dan memudahkan testing.
+## Kompromi Keputusan (Trade-offs)
+1. **Satu host vs proyek terpisah**: Menggabungkan Blazor + API dalam satu proyek demi kesederhanaan. Trade-off: pemisahan arsitektur (*separation*) kurang tegas, namun lebih mudah dijalankan (cukup satu perintah `dotnet run`).
+2. **SQL Server LocalDB vs Docker Container**: Menggunakan LocalDB karena sudah tersedia bawaan di Windows tanpa konfigurasi tambahan. Trade-off: tidak portabel ke sistem operasi non-Windows tanpa modifikasi.
+3. **Simulasi otentikasi via header vs sesi**: Menggunakan HTTP header `X-User-Email` untuk menyimulasikan otentikasi. Trade-off: tidak aman untuk dipasang di tahap *production*, namun memenuhi syarat evaluasi tes dan jauh lebih memudahkan pengujian (testing).

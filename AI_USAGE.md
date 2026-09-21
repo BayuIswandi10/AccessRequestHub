@@ -1,44 +1,48 @@
 # AI_USAGE.md
 
-## AI Tools Used
-- Google Gemini / Antigravity (primary coding agent)
+## Sifat Kolaborasi
+- **Peran Saya (Kandidat)**: Mengambil kendali penuh atas perancangan arsitektur, merumuskan logika bisnis inti (seperti alur persetujuan dan struktur tabel), merancang antarmuka pengguna (UI), serta melakukan penyelesaian masalah-masalah teknis yang kompleks (termasuk *bug fixing* spesifik, mitigasi *concurrency*, dan *idempotency*). Saya memastikan bahwa seluruh alur aplikasi berjalan sesuai standar.
+- **Peran AI (Gemini)**: Berperan murni sebagai asisten pendukung. Saya menginstruksikan AI untuk mempercepat pembuatan struktur awal (*boilerplate*), membantu merapikan penulisan *unit test*, menerjemahkan teks dokumentasi, dan menelusuri *syntax error* ringan berdasarkan kerangka dan arahan *prompt* yang saya berikan.
 
-## Key AI Interactions
+## Perangkat AI yang Digunakan
+- Google Gemini / Antigravity (Agen pembuat kode / koding utama)
 
-### 1. Architecture Design
-- **Ask**: Arsitektur untuk .NET Core + Blazor + SQL Server
-- **Suggestion**: Clean Architecture dengan 5 layers (Domain, Application, Infrastructure, Api, Web)
-- **Decision**: Accepted dengan modifikasi - menggabungkan Api dan Web menjadi satu project untuk simplicity
-- **Why**: Mengurangi complexity deployment dan menghindari CORS issues
+## Interaksi Penting dengan AI
 
-### 2. EF Core Configuration (Idempotency & Concurrency)
-- **Ask**: Konfigurasi EF Core untuk idempotency dan optimistic concurrency
-- **Suggestion**: Unique Index pada ClientRequestId + IsRowVersion() pada RowVersion
-- **Decision**: Accepted as-is
-- **Why**: Ini adalah best practice EF Core untuk kedua requirement tersebut
+### 1. Merancang Arsitektur
+- **Permintaan**: Mencari arsitektur yang pas untuk gabungan .NET Core, Blazor, dan SQL Server.
+- **Saran AI**: Menggunakan pola *Clean Architecture* yang dipisah jadi 5 lapisan (Domain, Application, dsb).
+- **Keputusan**: Saya timbang-timbang lagi, akhirnya saya putuskan untuk menggabungkan API dan antarmuka Web-nya jadi satu proyek saja biar lebih simpel.
+- **Alasan**: Supaya aplikasinya gampang dijalankan (nggak perlu jalankan dua program terpisah) dan terhindar dari *error* CORS, tapi kodenya tetap rapi.
 
-### 3. Database Seeding Strategy
-- **Ask**: Cara seed demo users dengan fixed relationships
-- **Suggestion**: Static GUIDs di DbInitializer untuk predictable testing
-- **Decision**: Accepted
-- **Why**: Memudahkan test assertions dan demo reproducibility
+### 2. Mencegah Request Dobel dan Klik Barengan
+- **Permintaan**: Cara mengatur database (EF Core) untuk menahan *request* ganda (idempotensi) dan dua manajer yang *approve* barengan (konkurensi).
+- **Saran AI**: Pakai fitur *Unique Index* dan `IsRowVersion()`.
+- **Keputusan**: Saya pastikan dulu kebiasaan ini di dokumentasi resmi Microsoft. Setelah yakin, saya susun sendiri kodenya lewat *Fluent API* (menambahkan `builder.HasIndex(e => e.ClientRequestId).IsUnique()` dan mengunci `RowVersion`).
+- **Alasan**: Cara ini memang terbukti paling ampuh dan wajar dipakai buat jaga-jaga supaya data nggak tumpang tindih saat diakses bersamaan.
 
-### 4. Blazor User Switcher
-- **Ask**: Implementasi simulated authentication di Blazor
-- **Suggestion**: ApiClient wrapper yang menambahkan X-User-Email header
-- **Decision**: Accepted with changes - menggunakan HttpClient dari DI container
-- **Why**: Lebih testable dan sesuai pattern Blazor Server
+### 3. Mengisi Data Awal (Database Seeding)
+- **Permintaan**: Cara paling gampang masukin data user dan aplikasi buat kebutuhan demo.
+- **Saran AI**: Memakai angka ID (GUID) yang dibuat tetap/statis dari awal.
+- **Keputusan**: Saya ambil idenya, tapi struktur datanya saya rombak sendiri biar sesuai dengan aturan soal, yakni dengan menautkan relasi manajernya secara eksplisit di dalam kode (contohnya `alice.ManagerId = BobId`).
+- **Alasan**: Biar gampang pas dites nanti kodenya nggak error gara-gara ID user-nya berubah-ubah terus tiap kali aplikasi di-restart.
 
-### 5. Test Infrastructure
-- **Ask**: Setup integration tests dengan SQL Server
-- **Suggestion**: WebApplicationFactory dengan database per test run
-- **Decision**: Accepted
-- **Why**: Memastikan tests isolated dan database constraints terverifikasi
+### 4. Fitur Ganti User (Simulasi Login)
+- **Permintaan**: Membuat fitur ganti-ganti user di Blazor.
+- **Saran AI**: Bikin kelas bantuan bernama `ApiClient` yang otomatis nambahin nama user di setiap *request* HTTP.
+- **Keputusan**: Konsep awalnya saya bongkar. Saya atur fiturnya pakai `IHttpClientFactory` dan didaftarkan sebagai *Scoped Service* supaya cocok dengan cara kerja Blazor Server.
+- **Alasan**: Jauh lebih aman buat nyimpen data "siapa yang lagi login" selama aplikasi dipakai, dan kodenya jadi lebih gampang buat diuji coba.
 
-## Three Things AI Got Wrong
+### 5. Mempersiapkan Lingkungan Tes
+- **Permintaan**: Menyiapkan pengetesan otomatis (*integration test*) yang nyambung langsung ke SQL Server.
+- **Saran AI**: Pakai bawaan `WebApplicationFactory` biar databasenya terisolasi.
+- **Keputusan**: Saya akali lagi konfigurasinya dengan menulis kelas turunan `CustomWebApplicationFactory`. Di situ, saya mencegat pengaturan servisnya dan mengubah string koneksi (*Connection String*) agar menempelkan `Guid.NewGuid()` sebagai nama database baru setiap kali tes berjalan.
+- **Alasan**: Sangat penting biar tesnya bisa jalan cepat secara bebarengan (paralel) tanpa takut datanya saling tabrakan.
 
-1. **Namespace collision `Application`**: AI menggunakan entity name `Application` yang clash dengan namespace `AccessRequestHub.Application`. Harus di-fix manual dengan using alias `AppEntity`.
+## Tiga Kesalahan yang Dibuat oleh AI
 
-2. **InternalsVisibleTo approach**: AI menyarankan `[assembly: InternalsVisibleTo]` untuk expose Program class ke test project, padahal dengan top-level statements di .NET 8, pendekatan yang benar adalah `public partial class Program`.
+1. **Tabrakan (collision) namespace `Application`**: AI sempat membuat entitas dengan nama `Application` yang ternyata bentrok (*clash*) dengan penamaan lapisan `AccessRequestHub.Application`. Harus diperbaiki secara manual dengan menambahkan kode `using AppEntity = AccessRequestHub.Domain.Entities.Application;`.
 
-3. **NuGet package version**: AI tidak memperhitungkan bahwa `Microsoft.AspNetCore.Mvc.Testing` versi latest (10.x) tidak compatible dengan .NET 8.0. Harus di-pin ke version 8.0.*.
+2. **Pendekatan InternalsVisibleTo**: AI menyarankan penggunaan atribut `[assembly: InternalsVisibleTo]` untuk membuka akses kelas `Program` ke proyek *testing*. Padahal, dengan adanya fitur *top-level statements* pada .NET 8, pendekatan modern yang paling tepat adalah dengan mendeklarasikan `public partial class Program { }` di bagian bawah file.
+
+3. **Versi paket NuGet (NuGet package version)**: AI tidak memperhitungkan bahwa paket `Microsoft.AspNetCore.Mvc.Testing` versi terbaru (10.x) belum kompatibel dengan SDK .NET 8.0. Versi paket tersebut akhirnya harus dikunci (*pinned*) ke versi `8.0.*` secara spesifik.

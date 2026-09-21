@@ -24,10 +24,8 @@ builder.Services.AddControllers()
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddHttpClient("Api", client =>
-{
-    client.BaseAddress = new Uri("http://localhost:5000");
-});
+builder.Services.AddHttpClient("Api");
+builder.Services.AddScoped<AccessRequestHub.Web.Services.ApiClient>();
 
 var app = builder.Build();
 

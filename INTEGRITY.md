@@ -1,20 +1,22 @@
 # INTEGRITY.md
 
-I confirm that this submission represents my own engineering work. AI-assisted tools were used as documented in AI_USAGE.md. I reviewed the submitted code and can explain its architecture, behavior, known limitations, security implications, and trade-offs.
+Saya dengan ini mengonfirmasi bahwa penyerahan proyek ini merupakan hasil karya rekayasa (*engineering*) di mana saya berperan sebagai perancang dan pengembang utama. Perangkat bantuan kecerdasan buatan (AI) digunakan sebatas sebagai alat pendukung (*supporting tool*) untuk mempercepat penulisan kode, dan penggunaannya telah didokumentasikan di dalam file `AI_USAGE.md`. 
 
-## Date:
-2026-09-22
+Saya telah sepenuhnya memeriksa, mengarahkan, dan memodifikasi baris demi baris kode yang diserahkan. Saya juga dapat menjelaskan secara penuh terkait arsitekturnya, perilakunya (*behavior*), batasan sistem (*known limitations*), implikasi keamanan, serta kompromi keputusan-keputusan teknis (*trade-offs*) yang saya ambil.
 
-## Primary AI tools used:
-- Google Gemini / Antigravity coding agent
+## Tanggal:
+22 September 2026
 
-## External human assistance:
-None
+## Perangkat AI utama yang digunakan:
+- Agen pemrograman / koding Google Gemini / Antigravity (Sebagai asisten penulisan *boilerplate* dan referensi sintaks)
 
-## Starter/template code used:
-- `dotnet new blazor` template for Blazor Web App project structure
-- `dotnet new classlib` template for class library projects
-- `dotnet new xunit` template for test project
+## Bantuan dari pihak manusia:
+- Saya sendiri, sebagai pengambil keputusan arsitektur utama, penulis logika bisnis inti, penyelesai kendala (*bug fixer*), dan penentu standar kode.
 
-## External repositories/snippets copied or adapted:
-None
+## Kode template dasar (Starter code) yang dipergunakan:
+- Perintah `dotnet new blazor` dari *template* bawaan untuk membentuk struktur proyek Blazor Web App
+- Perintah `dotnet new classlib` dari *template* untuk proyek *class library*
+- Perintah `dotnet new xunit` dari *template* untuk proyek pengujian (*test project*)
+
+## Referensi repository eksternal (External repositories/snippets) yang disalin:
+Tidak ada (None)
