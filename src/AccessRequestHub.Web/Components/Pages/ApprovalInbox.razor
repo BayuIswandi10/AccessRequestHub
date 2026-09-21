@@ -1,0 +1,64 @@
+@page "/approval-inbox"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h2>Approval Inbox</h2>
+
+@if (_loading)
+{
+    <p>Loading...</p>
+}
+else if (!_requests.Any())
+{
+    <div class="alert alert-info">No pending approvals.</div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Requester</th>
+                <th>Application</th>
+                <th>Environment</th>
+                <th>Access Level</th>
+                <th>Status</th>
+                <th>Created</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in _requests)
+            {
+                <tr>
+                    <td>@r.RequesterName</td>
+                    <td>@r.ApplicationName</td>
+                    <td>@r.Environment</td>
+                    <td>@r.AccessLevel</td>
+                    <td><span class="badge @GetStatusBadge(r.Status)">@r.Status</span></td>
+                    <td>@r.CreatedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td><a href="request/@r.Id" class="btn btn-sm btn-outline-primary">Review</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<AccessRequestListDto> _requests = new();
+    private bool _loading = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _requests = await Api.GetApprovalInboxAsync();
+        _loading = false;
+    }
+
+    private string GetStatusBadge(RequestStatus status) => status switch
+    {
+        RequestStatus.PendingManager => "bg-warning text-dark",
+        RequestStatus.PendingSystemOwner => "bg-info text-dark",
+        RequestStatus.Approved => "bg-success",
+        RequestStatus.Rejected => "bg-danger",
+        _ => "bg-secondary"
+    };
+}

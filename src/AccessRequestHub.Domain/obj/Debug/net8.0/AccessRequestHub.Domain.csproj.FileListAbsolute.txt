@@ -1,0 +1,11 @@
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\bin\Debug\net8.0\AccessRequestHub.Domain.deps.json
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\bin\Debug\net8.0\AccessRequestHub.Domain.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\bin\Debug\net8.0\AccessRequestHub.Domain.pdb
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.AssemblyInfoInputs.cache
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.AssemblyInfo.cs
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.csproj.CoreCompileInputs.cache
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\refint\AccessRequestHub.Domain.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\AccessRequestHub.Domain.pdb
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Domain\obj\Debug\net8.0\ref\AccessRequestHub.Domain.dll

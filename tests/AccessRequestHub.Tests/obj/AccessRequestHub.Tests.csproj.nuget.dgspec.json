@@ -1,0 +1,412 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\tests\\AccessRequestHub.Tests\\AccessRequestHub.Tests.csproj": {}
+  },
+  "projects": {
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj",
+        "projectName": "AccessRequestHub.Application",
+        "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj",
+        "packagesPath": "C:\\Users\\FANI\\.nuget\\packages\\",
+        "outputPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\AccessRequestHub.Domain.csproj": {
+                "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\AccessRequestHub.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\AccessRequestHub.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\AccessRequestHub.Domain.csproj",
+        "projectName": "AccessRequestHub.Domain",
+        "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\AccessRequestHub.Domain.csproj",
+        "packagesPath": "C:\\Users\\FANI\\.nuget\\packages\\",
+        "outputPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\AccessRequestHub.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\AccessRequestHub.Infrastructure.csproj",
+        "projectName": "AccessRequestHub.Infrastructure",
+        "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\AccessRequestHub.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\FANI\\.nuget\\packages\\",
+        "outputPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj": {
+                "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.*, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\AccessRequestHub.Web.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\AccessRequestHub.Web.csproj",
+        "projectName": "AccessRequestHub.Web",
+        "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\AccessRequestHub.Web.csproj",
+        "packagesPath": "C:\\Users\\FANI\\.nuget\\packages\\",
+        "outputPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj": {
+                "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application\\AccessRequestHub.Application.csproj"
+              },
+              "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\AccessRequestHub.Infrastructure.csproj": {
+                "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure\\AccessRequestHub.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.*, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\tests\\AccessRequestHub.Tests\\AccessRequestHub.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\tests\\AccessRequestHub.Tests\\AccessRequestHub.Tests.csproj",
+        "projectName": "AccessRequestHub.Tests",
+        "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\tests\\AccessRequestHub.Tests\\AccessRequestHub.Tests.csproj",
+        "packagesPath": "C:\\Users\\FANI\\.nuget\\packages\\",
+        "outputPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\tests\\AccessRequestHub.Tests\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\FANI\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\AccessRequestHub.Web.csproj": {
+                "projectPath": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web\\AccessRequestHub.Web.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        },
+        "SdkAnalysisLevel": "9.0.300"
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.Testing": {
+              "target": "Package",
+              "version": "[8.0.*, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.*, )"
+            },
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[17.8.0, )"
+            },
+            "coverlet.collector": {
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            },
+            "xunit.runner.visualstudio": {
+              "target": "Package",
+              "version": "[2.5.3, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.304/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

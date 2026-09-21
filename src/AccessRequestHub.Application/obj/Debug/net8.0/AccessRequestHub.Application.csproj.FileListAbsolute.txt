@@ -1,0 +1,15 @@
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.csproj.AssemblyReference.cache
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.AssemblyInfoInputs.cache
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.AssemblyInfo.cs
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.csproj.CoreCompileInputs.cache
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\bin\Debug\net8.0\AccessRequestHub.Application.deps.json
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\bin\Debug\net8.0\AccessRequestHub.Application.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\bin\Debug\net8.0\AccessRequestHub.Application.pdb
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\bin\Debug\net8.0\AccessRequestHub.Domain.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\bin\Debug\net8.0\AccessRequestHub.Domain.pdb
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRe.448F1033.Up2Date
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\refint\AccessRequestHub.Application.dll
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\AccessRequestHub.Application.pdb
+C:\Bayu\Agit\Enterprise_Fullstack_AI_Assisted_Candidate\src\AccessRequestHub.Application\obj\Debug\net8.0\ref\AccessRequestHub.Application.dll

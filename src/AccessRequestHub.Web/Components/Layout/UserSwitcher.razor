@@ -1,0 +1,28 @@
+@inject ApiClient Api
+
+<div style="display: flex; align-items: center; gap: 10px;">
+    <label><strong>Current User:</strong></label>
+    <select value="@_selectedEmail" @onchange="OnUserChanged" style="padding: 4px 8px;">
+        @foreach (var user in _users)
+        {
+            <option value="@user.Email">@user.Name (@user.Email)</option>
+        }
+    </select>
+</div>
+
+@code {
+    private List<UserDto> _users = new();
+    private string _selectedEmail = "alice@example.local";
+
+    protected override async Task OnInitializedAsync()
+    {
+        Api.SetCurrentUser(_selectedEmail);
+        _users = await Api.GetUsersAsync();
+    }
+
+    private void OnUserChanged(ChangeEventArgs e)
+    {
+        _selectedEmail = e.Value?.ToString() ?? "alice@example.local";
+        Api.SetCurrentUser(_selectedEmail);
+    }
+}

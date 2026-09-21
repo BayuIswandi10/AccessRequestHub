@@ -1,0 +1,123 @@
+@page "/create-request"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h2>Create Access Request</h2>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="alert alert-danger">@_errorMessage</div>
+}
+
+@if (!string.IsNullOrEmpty(_successMessage))
+{
+    <div class="alert alert-success">@_successMessage</div>
+}
+
+<div class="card" style="max-width: 600px;">
+    <div class="card-body">
+        <div class="mb-3">
+            <label class="form-label">Application</label>
+            <select class="form-select" @bind="_selectedAppId">
+                <option value="">-- Select Application --</option>
+                @foreach (var app in _applications)
+                {
+                    <option value="@app.Id">@app.Name</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Environment</label>
+            <select class="form-select" @bind="_selectedEnvironment">
+                <option value="NonProduction">Non-Production</option>
+                <option value="Production">Production</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Access Level</label>
+            <select class="form-select" @bind="_selectedAccessLevel">
+                <option value="Read">Read</option>
+                <option value="Admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Business Justification</label>
+            <textarea class="form-control" rows="3" @bind="_justification"></textarea>
+        </div>
+
+        <button class="btn btn-primary" @onclick="SubmitRequest" disabled="@_isSubmitting">
+            @if (_isSubmitting)
+            {
+                <span>Submitting...</span>
+            }
+            else
+            {
+                <span>Submit Request</span>
+            }
+        </button>
+    </div>
+</div>
+
+@code {
+    private List<ApplicationDto> _applications = new();
+    private string _selectedAppId = "";
+    private string _selectedEnvironment = "NonProduction";
+    private string _selectedAccessLevel = "Read";
+    private string _justification = "";
+    private string _errorMessage = "";
+    private string _successMessage = "";
+    private bool _isSubmitting;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _applications = await Api.GetApplicationsAsync();
+    }
+
+    private async Task SubmitRequest()
+    {
+        _errorMessage = "";
+        _successMessage = "";
+
+        if (string.IsNullOrEmpty(_selectedAppId))
+        {
+            _errorMessage = "Please select an application.";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_justification))
+        {
+            _errorMessage = "Business justification is required.";
+            return;
+        }
+
+        _isSubmitting = true;
+
+        try
+        {
+            var dto = new CreateAccessRequestDto
+            {
+                ClientRequestId = Guid.NewGuid(),
+                ApplicationId = Guid.Parse(_selectedAppId),
+                Environment = Enum.Parse<RequestEnvironment>(_selectedEnvironment),
+                AccessLevel = Enum.Parse<AccessLevel>(_selectedAccessLevel),
+                BusinessJustification = _justification
+            };
+
+            var result = await Api.CreateRequestAsync(dto);
+            _successMessage = "Request created successfully!";
+            _justification = "";
+            _selectedAppId = "";
+        }
+        catch (HttpRequestException ex)
+        {
+            _errorMessage = $"Failed to create request: {ex.Message}";
+        }
+        finally
+        {
+            _isSubmitting = false;
+        }
+    }
+}

@@ -1,0 +1,6 @@
+{
+  "AccessRequestHub.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Application",
+  "AccessRequestHub.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Domain",
+  "AccessRequestHub.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Infrastructure",
+  "AccessRequestHub.Web, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null": "C:\\Bayu\\Agit\\Enterprise_Fullstack_AI_Assisted_Candidate\\src\\AccessRequestHub.Web"
+}

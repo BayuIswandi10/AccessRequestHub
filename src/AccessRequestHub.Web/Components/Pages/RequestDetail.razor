@@ -1,0 +1,205 @@
+@page "/request/{Id:guid}"
+@inject ApiClient Api
+@inject NavigationManager Nav
+
+<h2>Request Detail</h2>
+
+@if (_loading)
+{
+    <p>Loading...</p>
+}
+else if (_request == null)
+{
+    <div class="alert alert-warning">Request not found.</div>
+}
+else
+{
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert alert-danger">@_errorMessage</div>
+    }
+
+    @if (!string.IsNullOrEmpty(_successMessage))
+    {
+        <div class="alert alert-success">@_successMessage</div>
+    }
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <strong>@_request.ApplicationName</strong> -
+            <span class="badge @GetStatusBadge(_request.Status)">@_request.Status</span>
+        </div>
+        <div class="card-body">
+            <div class="row mb-2">
+                <div class="col-3"><strong>Requester:</strong></div>
+                <div class="col-9">@_request.RequesterName (@_request.RequesterEmail)</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3"><strong>Environment:</strong></div>
+                <div class="col-9">@_request.Environment</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3"><strong>Access Level:</strong></div>
+                <div class="col-9">@_request.AccessLevel</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3"><strong>Justification:</strong></div>
+                <div class="col-9">@_request.BusinessJustification</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3"><strong>Policy Version:</strong></div>
+                <div class="col-9">@_request.PolicyVersion</div>
+            </div>
+            <div class="row mb-2">
+                <div class="col-3"><strong>Created:</strong></div>
+                <div class="col-9">@_request.CreatedAt.ToString("yyyy-MM-dd HH:mm:ss")</div>
+            </div>
+        </div>
+    </div>
+
+    @if (_request.Status == RequestStatus.PendingManager || _request.Status == RequestStatus.PendingSystemOwner)
+    {
+        <div class="card mb-4">
+            <div class="card-header">Actions</div>
+            <div class="card-body">
+                <div class="mb-3">
+                    <label class="form-label">Reason (required for rejection)</label>
+                    <textarea class="form-control" rows="2" @bind="_reason"></textarea>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-success" @onclick="ApproveRequest" disabled="@_processing">Approve</button>
+                    <button class="btn btn-danger" @onclick="RejectRequest" disabled="@_processing">Reject</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="card">
+        <div class="card-header">Audit Timeline</div>
+        <div class="card-body">
+            @if (!_request.AuditEvents.Any())
+            {
+                <p>No audit events.</p>
+            }
+            else
+            {
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Actor</th>
+                            <th>Action</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var evt in _request.AuditEvents)
+                        {
+                            <tr>
+                                <td>@evt.Timestamp.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                                <td>@evt.ActorName</td>
+                                <td>@evt.Action</td>
+                                <td>@(evt.Reason ?? "-")</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+}
+
+@code {
+    [Parameter] public Guid Id { get; set; }
+
+    private AccessRequestDetailDto? _request;
+    private bool _loading = true;
+    private bool _processing;
+    private string _reason = "";
+    private string _errorMessage = "";
+    private string _successMessage = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadRequest();
+    }
+
+    private async Task LoadRequest()
+    {
+        _loading = true;
+        _request = await Api.GetRequestDetailAsync(Id);
+        _loading = false;
+    }
+
+    private async Task ApproveRequest()
+    {
+        _errorMessage = "";
+        _successMessage = "";
+        _processing = true;
+
+        try
+        {
+            var dto = new ApprovalActionDto
+            {
+                RowVersion = _request!.RowVersion,
+                Reason = string.IsNullOrWhiteSpace(_reason) ? null : _reason
+            };
+            _request = await Api.ApproveRequestAsync(Id, dto);
+            _successMessage = "Request approved successfully.";
+            _reason = "";
+        }
+        catch (HttpRequestException ex)
+        {
+            _errorMessage = $"Approval failed: {ex.Message}";
+            await LoadRequest();
+        }
+        finally
+        {
+            _processing = false;
+        }
+    }
+
+    private async Task RejectRequest()
+    {
+        _errorMessage = "";
+        _successMessage = "";
+
+        if (string.IsNullOrWhiteSpace(_reason))
+        {
+            _errorMessage = "Rejection reason is required.";
+            return;
+        }
+
+        _processing = true;
+
+        try
+        {
+            var dto = new ApprovalActionDto
+            {
+                RowVersion = _request!.RowVersion,
+                Reason = _reason
+            };
+            _request = await Api.RejectRequestAsync(Id, dto);
+            _successMessage = "Request rejected.";
+            _reason = "";
+        }
+        catch (HttpRequestException ex)
+        {
+            _errorMessage = $"Rejection failed: {ex.Message}";
+            await LoadRequest();
+        }
+        finally
+        {
+            _processing = false;
+        }
+    }
+
+    private string GetStatusBadge(RequestStatus status) => status switch
+    {
+        RequestStatus.PendingManager => "bg-warning text-dark",
+        RequestStatus.PendingSystemOwner => "bg-info text-dark",
+        RequestStatus.Approved => "bg-success",
+        RequestStatus.Rejected => "bg-danger",
+        _ => "bg-secondary"
+    };
+}
